@@ -11,6 +11,7 @@ import random
 ## Cards are not removed from the deck as they are drawn.
 ## The computer is the dealer.
 
+
 user_cards = []
 computer_cards = []
 
@@ -32,17 +33,20 @@ for _ in range(2):
 print(user_cards)
 print(computer_cards[0])
 
-def calculate_score(food):
- return sum(food)
+def calculate_score(cards):
+  sum_cards=sum(cards)
+  
+  if 11 in cards and sum_cards>21:
+    cards.remove(11)
+    cards.append(1)
+    sum_cards=sum(cards)
+  if sum_cards==21:
+    return 0
+  return sum_cards
   
 print(calculate_score(user_cards))
 print(calculate_score(computer_cards))
 
-
-
-#Hint 7: Inside calculate_score() check for a blackjack (a hand with only 2 cards: ace + 10) and return 0 instead of the actual score. 0 will represent a blackjack in our game.
-
-#Hint 8: Inside calculate_score() check for an 11 (ace). If the score is already over 21, remove the 11 and replace it with a 1. You might need to look up append() and remove().
 
 #Hint 9: Call calculate_score(). If the computer or the user has a blackjack (0) or if the user's score is over 21, then the game ends.
 
