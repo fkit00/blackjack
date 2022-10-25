@@ -1,5 +1,6 @@
 import random 
-import clear
+from replit import clear
+import art
 ############### Our Blackjack House Rules #####################
 
 ## The deck is unlimited in size. 
@@ -35,44 +36,6 @@ def calculate_score(cards):
   return sum_cards
   
 
-for _ in range(2):
-  new_cards= deal_card()
-  user_cards.append(new_cards)
-  
-for _ in range(2):
-  new_cards= deal_card()
-  computer_cards.append(new_cards)
-
-
-user_cards_score = calculate_score(user_cards)
-computer_cards_score=calculate_score(computer_cards)
-
-while not game_over:
-    
-  print(f"Your cards are {user_cards}, your score is {calculate_score(user_cards)}")
-  print(f"The computers first card is  {computer_cards[0]}")
-  
-  if computer_cards_score == 0 or user_cards_score == 0 or user_cards_score>21 :
-    game_over=True
-  else:
-    new_card=input(f"Your score is {user_cards_score}, would you like to pick another card? y/n  ")
-    if new_card=='y':
-      additional_card=deal_card()
-      user_cards.append(additional_card)
-      user_cards_score = calculate_score(user_cards)
-      print(f"you picked {additional_card}")
-    if new_card=='n':
-      game_over=True
-
-while computer_cards_score !=0 and computer_cards_score<17:
-  additional_card=deal_card()
-  computer_cards.append(additional_card)
-  computer_cards_score=calculate_score(computer_cards)
-  print(computer_cards_score)
-
-
-
-
 def compare(computer_cards_score, user_cards_score):
   if computer_cards_score==user_cards_score:
     return "It's a draw!"
@@ -89,12 +52,51 @@ def compare(computer_cards_score, user_cards_score):
   else: 
     "you lose"
 
-print(compare(computer_cards_score, user_cards_score))
-
-again= input('Do you want to play again? y/n ')
-
-if again == 'y':
+while input("Do you want to play a game of Blackjack? Type y or n :")== 'y':
   clear()
+  print(art.logo)
   game_over=False
+  user_cards = []
+  computer_cards = []
+  
+  for _ in range(2):
+    new_cards= deal_card()
+    user_cards.append(new_cards)
+    
+  for _ in range(2):
+    new_cards= deal_card()
+    computer_cards.append(new_cards)
+  
+  
+  user_cards_score = calculate_score(user_cards)
+  computer_cards_score=calculate_score(computer_cards)
+  
+  while not game_over:
+      
+    print(f"Your cards are {user_cards}, your score is {calculate_score(user_cards)}")
+    print(f"The computers first card is  {computer_cards[0]}")
+    
+    if computer_cards_score == 0 or user_cards_score == 0 or user_cards_score>21 :
+      game_over=True
+    else:
+      new_card=input(f"Your score is {user_cards_score}, would you like to pick another card? y/n  ")
+      if new_card=='y':
+        additional_card=deal_card()
+        user_cards.append(additional_card)
+        user_cards_score = calculate_score(user_cards)
+        print(f"you picked {additional_card}")
+      if new_card=='n':
+        game_over=True
+  
+  while computer_cards_score !=0 and computer_cards_score<17:
+    additional_card=deal_card()
+    computer_cards.append(additional_card)
+    computer_cards_score=calculate_score(computer_cards)
+  
+  
+  print(f"Your score was {user_cards_score}, and the computers was {computer_cards_score}" )
+  print(compare(computer_cards_score, user_cards_score))
+
+
 
   
