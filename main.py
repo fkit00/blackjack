@@ -14,7 +14,7 @@ import random
 
 user_cards = []
 computer_cards = []
-
+game_over=False
 
 def deal_card():
   cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
@@ -22,37 +22,47 @@ def deal_card():
   return card
 
 for _ in range(2):
-  new_card= deal_card()
-  user_cards.append(new_card)
+  new_cards= deal_card()
+  user_cards.append(new_cards)
   
 for _ in range(2):
-  new_card= deal_card()
-  computer_cards.append(new_card)
+  new_cards= deal_card()
+  computer_cards.append(new_cards)
 
   
-print(user_cards)
-print(computer_cards[0])
+print(f"Your cards are {user_cards}")
+print(f"The computer has {computer_cards[0]}")
 
 def calculate_score(cards):
   sum_cards=sum(cards)
-  
+  if sum_cards==21:
+    return 0
+    
   if 11 in cards and sum_cards>21:
     cards.remove(11)
     cards.append(1)
     sum_cards=sum(cards)
-  if sum_cards==21:
-    return 0
+ 
   return sum_cards
   
-print(calculate_score(user_cards))
-print(calculate_score(computer_cards))
 
+user_cards_score = calculate_score(user_cards)
+computer_cards_score=calculate_score(computer_cards)
+print(f"Your score is {user_cards_score}")
+print(f"The computer score is {computer_cards_score}")
 
-#Hint 9: Call calculate_score(). If the computer or the user has a blackjack (0) or if the user's score is over 21, then the game ends.
+if computer_cards_score == 0 or user_cards_score == 0 or user_cards_score>21 :
+  game_over=True
+else:
+  new_card=input(f"Your score is {user_cards_score}, would you like to pick another card? y/n  ")
+  if new_card=='y':
+    additional_card=deal_card()
+    user_cards.append(additional_card)
+    user_cards_score = calculate_score(user_cards)
+    print(f"you picked {additional_card}, your score is {user_cards_score}")
 
-#Hint 10: If the game has not ended, ask the user if they want to draw another card. If yes, then use the deal_card() function to add another card to the user_cards List. If no, then the game has ended.
+  
 
-#Hint 11: The score will need to be rechecked with every new card drawn and the checks in Hint 9 need to be repeated until the game ends.
 
 #Hint 12: Once the user is done, it's time to let the computer play. The computer should keep drawing cards as long as it has a score less than 17.
 
